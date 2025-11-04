@@ -11,7 +11,7 @@ class ProgramRepository
         //program has many seasons
         //seasons belong to program    
         //season has many episodes
-        return Program::select('program_id', 'title', 'description')->with('seasons')->get();
+        return Program::select('program_id', 'title', 'description', 'type')->with('seasons')->get();
     }
 
     public function find($id)
