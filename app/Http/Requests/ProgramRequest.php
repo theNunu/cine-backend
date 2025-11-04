@@ -2,10 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\ProgramType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
-
+use Illuminate\Validation\Rule;
 
 class ProgramRequest extends FormRequest
 {
@@ -26,7 +27,8 @@ class ProgramRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'type' => 'required|in:movie,series',
+            // 'type' => 'required|in:movie,series',
+            'type' => ['required', Rule::in(ProgramType::values())],
             'description' => 'nullable|string',
             'release_date' => 'nullable|date',
             'cover_image' => 'nullable|string'

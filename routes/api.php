@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\ProgramController;
 
 // Route::apiResource('programs', ProgramController::class);
-
+Route::get('programs-movies', [ProgramController::class, 'getMovies']);
 Route::apiResource('programs', ProgramController::class);
 Route::apiResource('seasons', SeasonController::class);
 Route::apiResource('episodes', EpisodeController::class);

@@ -21,6 +21,11 @@ class ProgramController extends Controller
         return response()->json($this->programService->getAll());
     }
 
+    public function getMovies(): JsonResponse
+    {
+        return response()->json($this->programService->getByType('movie'));
+    }
+
     public function show($id): JsonResponse
     {
         return response()->json($this->programService->getById($id));

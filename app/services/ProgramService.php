@@ -18,6 +18,11 @@ class ProgramService
         return $this->programRepository->all();
     }
 
+    public function getByType($type)
+    {
+        return $this->programRepository->findByType($type);
+    }
+
     public function getById($id)
     {
         return $this->programRepository->find($id);

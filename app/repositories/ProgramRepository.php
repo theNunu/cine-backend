@@ -14,6 +14,10 @@ class ProgramRepository
         return Program::select('program_id', 'title', 'description', 'type')->with('seasons')->get();
     }
 
+    public function findByType($type)
+    {
+        return Program::where('type', $type)->with('seasons')->get();
+    }
     public function find($id)
     {
         return Program::with('seasons')->findOrFail($id);
@@ -21,6 +25,7 @@ class ProgramRepository
 
     public function create(array $data)
     {
+        // dd($data);
         return Program::create($data);
     }
 
