@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('programs', function (Blueprint $table) {
             $table->id('program_id');
             $table->string('title');
-            $table->text('description')->nullable();
+            $table->text('description')->nullable()->default('no hay descripcion');
             // $table->enum('type', ['movie', 'series']);
             // Guardamos como string para evitar dependencias de motor de BD
             $table->string('type')->index();
+            // $table->foreignId('program_genre_id')->constrained('program_genres', 'program_genre_id')->onDelete('cascade');
             /*
             👉 Laravel le dice al motor de base de datos:
             “Crea un índice sobre la columna type”.

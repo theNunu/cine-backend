@@ -29,6 +29,14 @@ class ProgramRequest extends FormRequest
             'title' => 'required|string|max:255',
             // 'type' => 'required|in:movie,series',
             'type' => ['required', Rule::in(ProgramType::values())],
+            // 'genre_id' => 'required|exists:genres,genre_id',
+
+            // 👇 Aquí validamos que genres sea un array
+            'genres' => 'required|array|min:1',
+
+            // 👇 Cada elemento del array debe ser un número entero y existir en la tabla genre
+            'genres.*' => 'integer|exists:genres,genre_id',
+
             'description' => 'nullable|string',
             'release_date' => 'nullable|date',
             'cover_image' => 'nullable|string'
@@ -43,12 +51,13 @@ class ProgramRequest extends FormRequest
             'title.string' => 'El título debe ser una cadena de texto.',
             'title.max' => 'El título no debe exceder los 255 caracteres.',
             'type.required' => 'El tipo es obligatorio.',
-            'type.in' => 'El tipo debe ser "movie" o "series".',
+            'type_programs_id' => 'required|exists:type_programs,type_programs_id',
+            // 'type.in' => 'El tipo debe ser "movie" o "series".',
             'description.string' => 'La descripción debe ser una cadena de texto.',
             'release_date.date' => 'La fecha de lanzamiento debe ser una fecha válida.',
             'cover_image.string' => 'La imagen de portada debe ser una cadena de texto.'
         ];
-    }   
+    }
 
     protected function failedValidation(Validator $validator)
     {
