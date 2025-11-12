@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class ProgramController extends Controller
 {
-       protected $programService;
+    protected $programService;
 
     public function __construct(ProgramService $programService)
     {
@@ -45,5 +45,18 @@ class ProgramController extends Controller
     {
         $this->programService->delete($id);
         return response()->json(['message' => 'Program deleted successfully']);
+    }
+    public function countByGenre($genre)
+    {
+
+        $count = $this->programService->countByGenre($genre);
+
+        if ($count === null) {
+            return response()->json([
+                'message' => "No se encontró el género '{$genre}'"
+            ], 404);
+        }
+
+        return $count;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Genre;
 use App\Repositories\ProgramRepository;
 
 class ProgramService
@@ -42,5 +43,21 @@ class ProgramService
     public function delete($id)
     {
         return $this->programRepository->delete($id);
+    }
+
+    public function countByGenre(string $genre)
+    {   
+        // $genreUpper = strtoupper($genre);
+        $genre = Genre::where('name', strtoupper($genre))->first();
+        // dd($genre);
+        if (!$genre) {
+            return null;
+        }
+
+        $res = $genre->programs()->count();
+
+        return response()->json([
+            'cantidad de programas' => $res
+        ]);
     }
 }
