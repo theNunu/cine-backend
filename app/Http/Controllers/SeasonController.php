@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SeasonRequest;
 use App\Services\SeasonService;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class SeasonController extends Controller
 {
-        protected $seasonService;
+    protected $seasonService;
 
     public function __construct(SeasonService $seasonService)
     {
@@ -28,7 +29,15 @@ class SeasonController extends Controller
 
     public function store(SeasonRequest $request): JsonResponse
     {
-        return response()->json($this->seasonService->create($request->validated()), 201);
+        // return response()->json($this->seasonService->create($request->validated()), 201);
+        try {
+            $season = $this->seasonService->create($request->validated());
+            return response()->json($season, 201);
+        } catch (Exception $e) {
+            return response()->json([
+                'error detectado' => $e->getMessage()
+            ], 422);
+        }
     }
 
     public function update(SeasonRequest $request, $id): JsonResponse

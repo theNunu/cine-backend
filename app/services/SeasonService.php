@@ -2,7 +2,10 @@
 
 namespace App\Services;
 
+use App\Enums\ProgramType;
+use App\Models\Program;
 use App\Repositories\SeasonRepository;
+use Exception;
 
 class SeasonService
 {
@@ -25,6 +28,14 @@ class SeasonService
 
     public function create(array $data)
     {
+        // 1. Buscar el programa
+        $program = Program::find($data['program_id']);
+        // dd($program->type);
+
+        if ($program->type !== ProgramType::Series) {
+            throw new Exception("Solo se pueden agregar temporadas a programas de tipo 'series'.");
+        }
+
         return $this->seasonRepository->create($data);
     }
 
