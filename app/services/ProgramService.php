@@ -47,7 +47,7 @@ class ProgramService
 
     public function countByGenre(string $genre)
     {   
-        // $genreUpper = strtoupper($genre);
+
         $genre = Genre::where('name', strtoupper($genre))->first();
         // dd($genre);
         if (!$genre) {
@@ -55,6 +55,8 @@ class ProgramService
         }
 
         $res = $genre->programs()->count();
+        // $res = $genre->count();
+        
 
         return response()->json([
             'cantidad de programas' => $res

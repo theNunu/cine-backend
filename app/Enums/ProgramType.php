@@ -9,6 +9,7 @@ enum ProgramType: string
 
     public static function values(): array
     {
+        //funcion static = no invocada, solo se llama
         return array_map(fn(self $c) => $c->value, self::cases());
     }
 

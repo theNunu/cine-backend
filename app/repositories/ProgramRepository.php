@@ -31,6 +31,8 @@ class ProgramRepository
         // sync para asignar muchos géneros
         $program->genres()->sync($data['genres']);
 
+        // dd($program->load('genres'));
+
         return $program->load('genres');
     }
 
