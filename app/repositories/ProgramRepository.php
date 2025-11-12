@@ -80,7 +80,7 @@ class ProgramRepository
 
         // ✅ Orden principal + secundaria (para estabilidad)
         return $query->orderBy($sortBy, $order)
-                     ->orderBy('program_id', 'asc')
-                     ->get();
+            ->orderBy('program_id', 'asc')
+            ->get();
     }
 }

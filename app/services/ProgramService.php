@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Enums\ProgramType;
 use App\Models\Genre;
+use App\Models\Program;
 use App\Repositories\ProgramRepository;
 
 class ProgramService
@@ -63,9 +65,54 @@ class ProgramService
         ]);
     }
 
-   public function getFilteredPrograms(?string $type, ?string $sortBy, ?string $order)
+    public function getFilteredPrograms(?string $type, ?string $sortBy, ?string $order)
     {
-        return $this->programRepository->getFiltered($type, $sortBy, $order);
+        /*
+            ASC → los muestra de menor a mayor → 2001 → 2005 → 2010 → 2020
+            DESC → los muestra de mayor a menor → 2020 → 2010 → 2005 → 2001
+         */
+        // $programs = $this->programRepository->getFiltered($type, $sortBy, $order);
+
+        // return $programs->map(function ($program) {
+        //     return [
+        //         'program_id' => $program->program_id,
+        //         'title' => $program->title,
+        //         'type' => $program->type,
+        //         'release_year' => $program->release_year,
+        //     ];
+        // });
+
+        $query = Program::query();
+
+        if ($type && in_array($type, ProgramType::values())) {
+            $query->where('type', $type);
+        }
+
+        $validSorts = ['title', 'release_year', 'created_at'];
+
+        if (!in_array($sortBy, $validSorts)) {
+            $sortBy = 'release_year';
+        }
+
+        $order = strtolower($order) === 'asc' ? 'asc' : 'desc';
+
+        // Trae los resultados sin ordenar (ya que los ordenaremos después del map)
+        $programs = $query->get();
+
+        // Mapear los campos que quieres mostrar
+        $mapped = $programs->map(function ($program) {
+            return [
+                'program_id' => $program->program_id,
+                'title' => $program->title,
+                'type' => $program->type,
+                'release_year' => $program->release_year,
+            ];
+        });
+
+        // Ordenar después del map
+        //return $order === 'desc'
+        return $order === 'asc'
+            ? $mapped->sortBy($sortBy)->values()
+            : $mapped->sortByDesc($sortBy)->values();
     }
-    
 }
