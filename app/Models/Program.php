@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Program extends Model
 {
-    //
+    // protected $hidden = ['created_at', 'updated_at', 'pivot'];
     use HasFactory;
 
     protected $primaryKey = 'program_id';

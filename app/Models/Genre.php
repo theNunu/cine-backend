@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Genre extends Model
 {
-    //
+    //protected $hidden = ['created_at', 'updated_at', 'pivot'];
     use HasFactory;
 
     protected $primaryKey = 'genre_id';

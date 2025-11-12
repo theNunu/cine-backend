@@ -33,7 +33,14 @@ class ProgramRepository
 
         // dd($program->load('genres'));
 
-        return $program->load('genres');
+        // return $program->load('genres');
+        $program->load('genres');
+
+        return $program->makeHidden(['created_at', 'updated_at'])
+            ->setRelation(
+                'genres',
+                $program->genres->makeHidden(['created_at', 'updated_at', 'pivot'])
+            );
     }
 
     public function update($id, array $data)
