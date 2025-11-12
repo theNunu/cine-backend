@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 // Route::apiResource('programs', ProgramController::class);
 Route::get('programs-movies', [ProgramController::class, 'getMovies']);
 Route::get('/programs/count/{genre}', [ProgramController::class, 'countByGenre']);
+Route::get('/programs/filter', [ProgramController::class, 'filter']);
 
 Route::apiResource('programs', ProgramController::class);
 Route::apiResource('seasons', SeasonController::class);

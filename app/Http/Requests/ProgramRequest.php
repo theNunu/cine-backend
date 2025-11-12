@@ -39,7 +39,8 @@ class ProgramRequest extends FormRequest
 
             'description' => 'nullable|string',
             'release_date' => 'nullable|date',
-            'cover_image' => 'nullable|string'
+            'cover_image' => 'nullable|string',
+            'release_year' => 'nullable|int'
         ];
     }
 

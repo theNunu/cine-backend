@@ -19,7 +19,8 @@ class Program extends Model
         'type',
         'genre_id',
         'release_date',
-        'cover_image'
+        'cover_image',
+        'release_year'
     ];
 
     // Si tu versión de Laravel soporta enum casting:

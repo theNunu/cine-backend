@@ -59,4 +59,19 @@ class ProgramController extends Controller
 
         return $count;
     }
+
+     public function filter(Request $request)
+    {
+        $type = $request->query('type');          // series | movie
+        $sortBy = $request->query('sort_by');     // release_year | title | created_at
+        $order = $request->query('order');        // asc | desc
+
+        $programs = $this->programService->getFilteredPrograms($type, $sortBy, $order);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Programas filtrados correctamente',
+            'data' => $programs,
+        ]);
+    }
 }

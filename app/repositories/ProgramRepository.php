@@ -2,7 +2,9 @@
 
 namespace App\Repositories;
 
+use App\Enums\ProgramType;
 use App\Models\Program;
+use Illuminate\Database\Eloquent\Collection;
 
 class ProgramRepository
 {
@@ -55,5 +57,30 @@ class ProgramRepository
         $program = Program::findOrFail($id);
         $program->delete();
         return true;
+    }
+
+    public function getFiltered(?string $type = null, ?string $sortBy = 'release_year', ?string $order = 'desc'): Collection
+    {
+        $query = Program::query();
+
+        // Validar tipo
+        if ($type && in_array($type, ProgramType::values())) {
+            $query->where('type', $type);
+        }
+
+        // Campos válidos para ordenar
+        $validSorts = ['title', 'release_year', 'created_at'];
+
+        if (!in_array($sortBy, $validSorts)) {
+            $sortBy = 'release_year';
+        }
+
+        // Validar orden asc | desc
+        $order = strtolower($order) === 'asc' ? 'asc' : 'desc';
+
+        // ✅ Orden principal + secundaria (para estabilidad)
+        return $query->orderBy($sortBy, $order)
+                     ->orderBy('program_id', 'asc')
+                     ->get();
     }
 }
