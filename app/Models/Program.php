@@ -34,18 +34,14 @@ class Program extends Model
         return $this->hasMany(Season::class, 'program_id', 'program_id');
     }
 
-    // public function program_genre(): BelongsTo
-    // {
-    //     // Laravel asume la clave foránea user_id si no se especifica
-    //     return $this->belongsTo(ProgramGenre::class);
-    // }
-    // public function genres()
-    // {
-    //     return $this->belongsToMany(Genre::class, 'program_genres');
-    // }
     public function genres()
-{
-    return $this->belongsToMany(Genre::class, 'program_genres', 'program_id', 'genre_id');
-}
-
+    {
+        return $this->belongsToMany(Genre::class, 'program_genres', 'program_id', 'genre_id');
+        /*
+            related: Genre::class,      // modelo relacionado
+            table: 'program_genres',    // nombre de la tabla pivot
+            foreignPivotKey: 'program_id',  // columna pivot que apunta al modelo actual (Program)
+            relatedPivotKey: 'genre_id'     // columna pivot que apunta al modelo relacionado (Genre)
+         */
+    }
 }

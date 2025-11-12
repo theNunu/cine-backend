@@ -25,12 +25,7 @@ class ProgramRepository
 
     public function create(array $data)
     {
-        // // dd($data);
-        // $program = Program::create($data);
-        // dd($program, $data);
-        //  // sync para asignar muchos géneros
-        // $program->genres()->sync($data['genres']);
-        // return  $program->load('genres');
+        // dd($data);
         $program = Program::create($data);
 
         // sync para asignar muchos géneros
