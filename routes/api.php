@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\EpisodeController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\SeasonController;
@@ -21,3 +22,6 @@ Route::get('/programs/filter', [ProgramController::class, 'filter']);
 Route::apiResource('programs', ProgramController::class);
 Route::apiResource('seasons', SeasonController::class);
 Route::apiResource('episodes', EpisodeController::class);
+
+Route::get('carousels', [CarouselController::class, 'index']);
+Route::post('carousels', [CarouselController::class, 'store']);

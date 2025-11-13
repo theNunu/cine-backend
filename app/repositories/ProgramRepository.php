@@ -26,7 +26,7 @@ class ProgramRepository
     }
 
     public function create(array $data)
-    {
+    { //ASIGNAR MUCHOS GENEROS A UN PROGRAMA
         // dd($data);
         $program = Program::create($data);
 
